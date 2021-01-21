@@ -1,0 +1,235 @@
+﻿<Window x:Class="Kursach_1._2.CarRental_User"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Kursach_1._2"
+        mc:Ignorable="d"
+        Title="CarRental" Height="670" Width="1400">
+    <Window.ContextMenu>
+        <ContextMenu>
+            <MenuItem x:Name="refresh" Background="#333333" Header="Обновить" Foreground="White" Click="refresh_Click"/>
+            <Separator/>
+            <MenuItem x:Name="exit" Background="#333333" Header="Закрыть" Foreground="White" Click="exit_Click"/>
+        </ContextMenu>
+    </Window.ContextMenu>
+    <Grid Background="Black" ShowGridLines="False">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="180*"/>
+            <ColumnDefinition Width="505*"/>
+            <ColumnDefinition Width="11*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border  Background="#444444" BorderThickness="3" BorderBrush="Black" Width="Auto" CornerRadius="15" Grid.Column="0">
+            <Grid Margin="0,0,0,0">
+
+                <Label x:Name="welcomeLabel" Content="Добро пожаловать," Margin="38,26,38,562" HorizontalAlignment="Stretch" FontSize="18" FontFamily="Candara" Foreground="White"/>
+
+
+                <Label x:Name="usedPromoLabel" Content="Активный промокод: нет" HorizontalAlignment="Stretch" Margin="40,212,36,0" VerticalAlignment="Top" FontSize="18" FontFamily="Candara" Foreground="White" />
+
+
+                <TextBox x:Name="promocodeTextbox" HorizontalAlignment="Left" Width="140" Height="34" Margin="40,249,0,0" TextWrapping="Wrap" VerticalAlignment="Top"  FontSize="18" FontFamily="Candara"/>
+                <Button x:Name="promocodeButton"  Content="Активировать" HorizontalAlignment="Stretch" Margin="197,249,36,0" VerticalAlignment="Top" Height="34" Click="promocodeButton_Click" FontSize="18"/>
+
+                <Button x:Name="returnCarButton" Content="Вернуть авто" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="30" FontSize="18" FontFamily="Candara" Margin="38,20,38,0" BorderBrush="LightSkyBlue" Visibility="Hidden" IsEnabled="False"></Button>
+                <Button x:Name="paymentButton" Content="Погасить задолженность" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="30" FontSize="18" FontFamily="Candara" Margin="38,120,38,0" BorderBrush="LightSkyBlue" Visibility="Hidden" IsEnabled="False"></Button>
+
+                <Button x:Name="exitButton"  Content="Выйти из аккаунта" HorizontalAlignment="Stretch" Margin="93,574,93,0" VerticalAlignment="Top" Height="34" Click="exitButton_Click" FontSize="18"/>
+
+                <TextBlock x:Name="contactInfoTextblock" Text="Контактная информация:    
+                   Телефон: +375 (29) 732-24-35(МТС)
+                   VK: https://vk.com/thanatos_bd
+                   email: thanatos-0@yandex.by
+                   Адрес: ул. Белорусская 19" HorizontalAlignment="Stretch" Margin="38,424,38,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="140" FontSize="18" FontFamily="Candara" Foreground="White"/>
+
+                <Label x:Name="versionLabel" Content="v 1.2" HorizontalAlignment="Stretch" Margin="30,574,266,0" VerticalAlignment="Top" FontSize="18" FontFamily="Candara" Foreground="White" />
+
+
+                <Label x:Name="searchByModelLabel" Content="Модель:" HorizontalAlignment="Stretch" Margin="39,93,231,0" VerticalAlignment="Top" FontSize="18" FontFamily="Candara" Foreground="White" Height="34"/>
+                <TextBox x:Name="searchByModelTextbox" HorizontalAlignment="Stretch" VerticalContentAlignment="Center" Height="34" Margin="121,93,38,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="18" FontFamily="Candara" Foreground="White" TextChanged="searchByModelTextbox_TextChanged" />
+                <Button x:Name="filterSearch"  Content="Поиск по фильтрам" HorizontalAlignment="Stretch" Margin="38,132,38,0" VerticalAlignment="Top" FontSize="18" FontFamily="Candara" Height="34" Click="filterSearch_Click"/>
+            </Grid>
+        </Border>
+
+        <Border Background="#444444" BorderThickness="1" Margin="0,2,2,2" BorderBrush="Black" Width="Auto" CornerRadius="15" Grid.ColumnSpan="2" Grid.Column="1">
+            <TabControl Margin="5,5,5,5" FontSize="16" FontFamily="Candara">
+                <TabItem Header="Автомобили">
+                    <Grid Margin="9,9,9,11">
+                        <DataGrid x:Name="carbGrid" AutoGenerateColumns="False" Grid.Column="5">
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn Header="Фото" IsReadOnly="True" Width="65">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Image x:Name="carGridImage" Source="{Binding Path=Image}" Height="30" Stretch="Fill" HorizontalAlignment="Center" ></Image>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTextColumn Width="Auto" Header="Название" Binding="{Binding Path=Name}"></DataGridTextColumn>
+                                <DataGridTextColumn Width="Auto" Header="Модель" Binding="{Binding Path=Model}"></DataGridTextColumn>
+                                <DataGridTextColumn Width="Auto" Header="Дата выпуска" Binding="{Binding Path=ReleaseDate}"></DataGridTextColumn>
+                                <DataGridTextColumn Width="Auto" Header="Двигатель" Binding="{Binding Path=EngineVolume}"></DataGridTextColumn>
+                                <DataGridTextColumn Width="Auto" Header="Категория" Binding="{Binding Path=Category}"></DataGridTextColumn>
+                                <DataGridTextColumn Width="Auto" Header="Цвет" Binding="{Binding Path=Color}"></DataGridTextColumn>
+                                <DataGridTextColumn Width="Auto" Header="Пробег" Binding="{Binding Path=Mileage}"></DataGridTextColumn>
+                                <DataGridTextColumn Width="Auto" Header="Цена" Binding="{Binding Path=Price}"></DataGridTextColumn>
+                            </DataGrid.Columns>
+                            <DataGrid.RowDetailsTemplate>
+                                <DataTemplate>
+                                    <Border BorderBrush="Black" BorderThickness="2" CornerRadius="5" Margin="5,5,5,5">
+
+                                        <StackPanel Orientation="Vertical">
+
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+
+                                                <StackPanel Margin="0, 30, 20, 0" HorizontalAlignment="Left">
+                                                    <Border Height="202.5" Width="360" HorizontalAlignment="Left" BorderBrush="Black" BorderThickness="1" CornerRadius="5">
+                                                        <Image x:Name="bigImage" Source="{Binding Path = Image }" Stretch="Fill"  ></Image>
+                                                    </Border>
+                                                </StackPanel>
+
+                                                <StackPanel Orientation="Vertical" HorizontalAlignment="Right" Margin="5, 15, 0, 0">
+
+                                                    <Label x:Name="nameLabel" Content="Марка:" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Black" FontSize="16"></Label>
+                                                    <Label x:Name="modelLabel" Content="Модель:" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Black" FontSize="16"></Label>
+                                                    <Label x:Name="engineVolumeLabel" Content="Объем двигателя(л):" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Black" FontSize="16"></Label>
+                                                    <Label x:Name="releaseDateLabel" Content="Дата выпуска:" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Black" FontSize="16"></Label>
+                                                    <Label x:Name="categoryLabel" Content="Категория:" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Black" FontSize="16"></Label>
+                                                    <Label x:Name="colorLabel" Content="Цвет:" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Black" FontSize="16"></Label>
+                                                    <Label x:Name="mileagLabel" Content="Пробег(км):" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Black" FontSize="16"></Label>
+                                                    <Label x:Name="priceLabel" Content="Цена(BYN/день):" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Black" FontSize="16"></Label>
+
+                                                </StackPanel>
+
+                                                <StackPanel Orientation="Vertical"  Margin="0, 15, 0, 0">
+                                                    <Label x:Name="nameVLabel" Content="{Binding Path=Name}" HorizontalAlignment="Right" VerticalAlignment="Top" Foreground="Black" FontSize="16"></Label>
+                                                    <Label x:Name="modelVLabel" Content="{Binding Path=Model}" HorizontalAlignment="Right" VerticalAlignment="Top" Foreground="Black" FontSize="16"></Label>
+                                                    <Label x:Name="engineVolumeVLabel" Content="{Binding Path=EngineVolume}" HorizontalAlignment="Right" VerticalAlignment="Top" Foreground="Black" FontSize="16"></Label>
+                                                    <Label x:Name="releaseDateVLabel" Content="{Binding Path=ReleaseDate}" HorizontalAlignment="Right" VerticalAlignment="Top" Foreground="Black" FontSize="16"></Label>
+                                                    <Label x:Name="categoryVLabel" Content="{Binding Path=Category}" HorizontalAlignment="Right" VerticalAlignment="Top" Foreground="Black" FontSize="16"></Label>
+                                                    <Label x:Name="colorVLabel" Content="{Binding Path=Color}" HorizontalAlignment="Right" VerticalAlignment="Top" Foreground="Black" FontSize="16"></Label>
+                                                    <Label x:Name="mileageVLabel" Content="{Binding Path=Mileage}" HorizontalAlignment="Right" VerticalAlignment="Top" Foreground="Black" FontSize="16"></Label>
+                                                    <Label x:Name="priceVLabel" Content="{Binding Path=Price}" HorizontalAlignment="Right" VerticalAlignment="Top" Foreground="Black" FontSize="16"></Label>
+                                                </StackPanel>
+
+                                            </StackPanel>
+
+                                            <StackPanel Orientation="Vertical">
+                                                <Border Width="650"  Margin="30, 15, 30, 0" Padding="5,5,5,5" Height="Auto" CornerRadius="5" BorderBrush="Black" BorderThickness="2" HorizontalAlignment="Center">
+                                                    <TextBlock  Text="{Binding Path=Description}" Width="Auto" Height="Auto" FontSize="16" TextWrapping="Wrap"></TextBlock>
+                                                </Border>
+                                                <Button x:Name="orderButton" Content="Арендовать" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,25,50,25" Width="100" Height="30" Click="orderButton_Click"/>
+                                            </StackPanel>
+
+                                        </StackPanel>
+                                    </Border>
+
+
+                                </DataTemplate>
+                            </DataGrid.RowDetailsTemplate>
+                        </DataGrid>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Отзывы">
+                    <TabItem.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem x:Name="addButton" Header="Добавить" Background="#333333" Foreground="White" Click="addButton_Click"/>
+                        </ContextMenu>
+                    </TabItem.ContextMenu>
+                    <Grid Margin="9,9,9,11">
+                        <DataGrid x:Name="reviewGrid" AutoGenerateColumns="False">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Имя" Binding="{Binding Path=FirstName}"></DataGridTextColumn>
+                                <DataGridTextColumn Header="Фамилия" Binding="{Binding Path=SecondName}"></DataGridTextColumn>
+                                <DataGridTemplateColumn Header="Отзыв" IsReadOnly="True" Width="Auto">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Margin="3,3,3,3" Width="auto" MaxWidth="500" Height="auto" Text="{Binding Path=Text}" Foreground="White" TextWrapping="Wrap" FontSize="16" FontFamily="Candara"></TextBlock>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                            <DataGrid.RowDetailsTemplate>
+                                <DataTemplate>
+                                    <TextBlock TextWrapping="Wrap" Width="auto" Text="{Binding Path=Text}" FontSize="16" Foreground="Black" FontFamily="Candara"></TextBlock>
+                                </DataTemplate>
+                            </DataGrid.RowDetailsTemplate>
+                        </DataGrid>
+                    </Grid>
+
+                </TabItem>
+                <TabItem Header="Об аккаунте">
+                    <Grid>
+                        <Border HorizontalAlignment="Stretch" Margin="100, 70" Background="#444444"  CornerRadius="15">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10,10,10,10" VerticalAlignment="Center">
+                                <StackPanel Orientation="Vertical" Margin="10,0,130,0" HorizontalAlignment="Left">
+                                    <Label Content="Фамилия:" FontSize="18" FontFamily="Candara"></Label>
+                                    <Label Content="Имя:" FontSize="18" FontFamily="Candara"></Label>
+                                    <Label Content="Отчество:" FontSize="18" FontFamily="Candara"></Label>
+                                    <Label Content="Номер телефона:" FontSize="18" FontFamily="Candara"></Label>
+                                    <Label Content="Дата рождения:" FontSize="18" FontFamily="Candara"></Label>
+                                    <Label Content="Номер паспорта:" FontSize="18" FontFamily="Candara"></Label>
+                                    <Label Content="Почта:" FontSize="18" FontFamily="Candara"></Label>
+                                    <Label Content="Логин:" FontSize="18" FontFamily="Candara"></Label>
+                                    <Label Content="Количество арендованных авто:" FontSize="18" FontFamily="Candara"></Label>
+                                    <Label Content="Дата регистрации:" FontSize="18" FontFamily="Candara"></Label>
+                                </StackPanel>
+                                <StackPanel Orientation="Vertical" Margin="0,0,0,0" HorizontalAlignment="Right">
+
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBox x:Name="secondNameTextbox" Width="150"  Foreground="White" FontSize="16" FontFamily="Candara" Height="28"></TextBox>
+                                        <Button x:Name="secondNameChangeButton" Margin="10,0,0,0" Width="100" Content="Изменить" FontSize="16" FontFamily="Candara" Click="secondNameChangeButton_Click"></Button>
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBox x:Name="firstNameTextbox" Margin="0,6,0,0" Width="150"  Foreground="White" FontSize="16" FontFamily="Candara" Height="28"></TextBox>
+                                        <Button x:Name="firstChangeButton" Margin="10,6,0,0" Width="100" Content="Изменить" FontSize="16" FontFamily="Candara" Click="firstChangeButton_Click"></Button>
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBox x:Name="middleNameTextbox" Margin="0,6,0,0" Width="150"  Foreground="White" FontSize="16" FontFamily="Candara" Height="28"></TextBox>
+                                        <Button x:Name="middleChangeButton" Margin="10,6,0,0" Width="100" Content="Изменить" FontSize="16" FontFamily="Candara" Click="middleChangeButton_Click"></Button>
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBox x:Name="phoneNumberTextbox" Margin="0,6,0,0" Width="150" Foreground="White" FontSize="16" FontFamily="Candara"></TextBox>
+                                        <Button x:Name="phoneNumberChangeButton" Margin="10,6,0,0" Width="100" Content="Изменить" FontSize="16" FontFamily="Candara" Click="phoneNumberChangeButton_Click"></Button>
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Horizontal">
+                                        <DatePicker x:Name="birthDatePicker" Margin="0,5,0,0" Width="150" SelectedDateFormat="Short"  Foreground="White" FontSize="16" FontFamily="Candara"></DatePicker>
+                                        <Button x:Name="birthDateButton" Margin="10,5,0,0" Width="100" Content="Изменить" FontSize="16" FontFamily="Candara" Click="birthDateButton_Click"></Button>
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBox x:Name="passportNumberTextbox" Margin="0,5,0,0" Width="150" Foreground="White" FontSize="16" FontFamily="Candara"></TextBox>
+                                        <Button x:Name="passportNumberChangeButton" Margin="10,5,0,0" Width="100" Content="Изменить" FontSize="16" FontFamily="Candara" Click="passportNumberChangeButton_Click"></Button>
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBox x:Name="emailTextbox" Margin="0,5,0,0" Width="150"  Foreground="White" FontSize="16" FontFamily="Candara" Height="28"></TextBox>
+                                        <Button x:Name="emailChangeButton" Margin="10,5,0,0" Width="100" Content="Изменить" FontSize="16" FontFamily="Candara" Click="emailChangeButton_Click"></Button>
+                                    </StackPanel>
+                                    <Label x:Name="LoginLabel" Content="Логин:" FontSize="16" FontFamily="Candara" Height="33" ></Label>
+                                    <Label x:Name="RentedCarsCountLabel" Content="Количество арендованных авто:" FontSize="16" FontFamily="Candara" Height="35"></Label>
+                                    <Label x:Name="RegistrationDateLabel" Content="Дата регистрации:" FontSize="16" FontFamily="Candara"></Label>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+
+
+                    </Grid>
+                </TabItem>
+            </TabControl>
+
+        </Border>
+
+
+
+
+
+    </Grid>
+</Window>

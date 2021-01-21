@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<User xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Id>15</Id>
+  <FirstName>egor</FirstName>
+  <SecondName>dgfdhfg</SecondName>
+  <MiddleName>fsdhgfjh</MiddleName>
+  <PhoneNumber>2435</PhoneNumber>
+  <DateOfBirth>2020-05-01T00:00:00</DateOfBirth>
+  <PassportSerialNumber>defjthgh</PassportSerialNumber>
+  <Email>somemail@gmail.com</Email>
+  <Login>5</Login>
+  <Hash>7AiTwn8ZZSKOGIhk12eWi2hn1Mw=</Hash>
+  <Salt>72LywEYgwgo=</Salt>
+  <Admin>false</Admin>
+</User>ocode>
+  <Admin>false</Admin>
+</User>

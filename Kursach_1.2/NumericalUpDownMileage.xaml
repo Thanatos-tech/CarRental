@@ -1,0 +1,14 @@
+﻿<UserControl x:Class="Kursach_1._2.NumericalUpDownMileage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Kursach_1._2"
+             mc:Ignorable="d" 
+             d:DesignHeight="45" d:DesignWidth="80">
+    <Grid Width="70" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top">
+        <TextBox x:Name="nums" Text="0" Width="50" Height="30" FontSize="16" HorizontalAlignment="Left" ></TextBox>
+        <Button x:Name="upButton"  Height="15" Width="20" Margin="50,0,0,15" Content="ˆ" Click="upButton_Click"/>
+        <Button x:Name="downButton" Height="15" Width="20" Margin="50,15,0,0" Content="ˇ" VerticalContentAlignment="Center" Click="downButton_Click"/>
+    </Grid>
+</UserControl>
